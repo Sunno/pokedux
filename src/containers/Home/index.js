@@ -1,15 +1,32 @@
-import React from 'react';
-import PokemonList from '../../components/PokemonList';
-import Searcher from '../../components/Searcher';
-import './styles.css';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { setPokemon } from "../../actions";
+import { getPokemons } from "../../api/getPokemons";
+import PokemonList from "../../components/PokemonList";
+import Searcher from "../../components/Searcher";
+import "./styles.css";
 
-function Home() {
+const mapStateToProps = (state) => ({
+  list: state.list,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setPokemons: (value) => dispatch(setPokemon(value)),
+});
+
+function Home({ list, setPokemons }) {
+  useEffect(() => {
+    getPokemons().then((res) => {
+      setPokemons(res.results);
+    });
+    // eslint-disable-next-line
+  }, []);
   return (
-    <div className='Home'>
+    <div className="Home">
       <Searcher />
       <PokemonList />
     </div>
   );
 }
 
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
