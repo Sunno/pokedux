@@ -1,13 +1,21 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Grid, Icon, Image, Label } from "semantic-ui-react";
-import PokemonList from ".";
-import { MAIN_COLOR, FAV_COLOR } from "../../utils/constants";
+import { toggleFavorite } from "../../actions";
+import { MAIN_COLOR, FAV_COLOR, NOT_FAV_COLOR } from "../../utils/constants";
 
 const PokemonCard = ({ pokemon }) => {
+  const dispatch = useDispatch();
+
+  const handleFavorite = () => {
+    dispatch(toggleFavorite(pokemon.id));
+  };
   return (
     <Grid.Column mobile={16} tablet={8} computer={4}>
       <div className="PokemonCard">
-        <Icon name="favorite" color={FAV_COLOR} />
+        <button className="PokemonCard-favorite" onClick={handleFavorite}>
+          <Icon name="favorite" color={pokemon.favorite ? FAV_COLOR : NOT_FAV_COLOR} />
+        </button>
         <Image
           centered
           src={pokemon.sprites.front_default}

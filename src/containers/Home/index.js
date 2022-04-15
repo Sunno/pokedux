@@ -1,15 +1,15 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPokemonWithDetails, setError, setPokemon } from "../../actions";
-import { getPokemons } from "../../api/getPokemons";
+import { getPokemonWithDetails } from "../../actions";
+import Loader from "../../components/Loader";
 import PokemonList from "../../components/PokemonList";
 import Searcher from "../../components/Searcher";
 import "./styles.css";
 
 function Home() {
   const dispatch = useDispatch();
-  const list = useSelector((state) => state.list);
+  const pokemons = useSelector((state) => state.list);
+  const loading = useSelector((state) => state.loading);
 
   useEffect(() => {
     dispatch(getPokemonWithDetails())
@@ -18,7 +18,8 @@ function Home() {
   return (
     <div className="Home">
       <Searcher />
-      <PokemonList pokemons={list} />
+      {loading && <Loader />}
+      <PokemonList pokemons={pokemons} />
     </div>
   );
 }
