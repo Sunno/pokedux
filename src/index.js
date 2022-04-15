@@ -11,7 +11,7 @@ import "./index.css";
 const composeAlt = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const composerEnhancers = composeAlt(applyMiddleware(thunk, logActions));
-const store = createStore(pokemonReducer, {}, composerEnhancers);
+const store = createStore(pokemonReducer, composerEnhancers);
 
 ReactDOM.render(
   <Provider store={store}>
