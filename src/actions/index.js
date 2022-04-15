@@ -12,9 +12,8 @@ export const setError = (payload) => ({
   payload,
 });
 
-export const clearError = (payload) => ({
-  type: CLEAR_ERROR,
-  payload,
+export const clearError = () => ({
+  type: CLEAR_ERROR
 });
 
 export const toggleLoader = () => ({
